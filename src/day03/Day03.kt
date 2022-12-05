@@ -19,13 +19,12 @@ fun main() {
 
     fun part1(input: List<String>): Int = input.sumOf { line ->
         val (firstHalf, secondHalf) = line.trimEnd()
-        val commonItem = firstHalf common secondHalf
-        commonItem.priority()
+        val commonItem = firstHalf.toSet() intersect secondHalf.toSet()
+        commonItem.sumOf { it.priority() }
     }
 
-    fun part2(input: List<String>): Int = input.splitInAGroupOf(3).sumOf { group ->
-        group.commonItem().priority()
-    }
+    fun part2(input: List<String>): Int = input.chunked(3).map { it.map { str -> str.toSet() }.toList() }
+        .sumOf { it.fold(it.first()) { acc, chars -> acc intersect chars }.sumOf { ch -> ch.priority() } }
 
     val inputForPartOne = readInput("day03/Day03_test")
     println(part1(inputForPartOne))
