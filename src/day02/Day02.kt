@@ -1,3 +1,7 @@
+package day02
+
+import readInput
+
 fun main() {
     fun part1(input: List<String>): Int {
         fun scoreForShape(shape: Char): Int = shape - 'X' + 1
